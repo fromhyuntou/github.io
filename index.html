@@ -237,6 +237,60 @@
   }
   .videos .caption .title { color: var(--fg); }
 
+  /* Disclosure (Archive years) */
+  details.year {
+    border-top: 1px solid var(--line);
+  }
+  details.year:last-of-type {
+    border-bottom: 1px solid var(--line);
+  }
+  details.year > summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 14px 0;
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  details.year > summary::-webkit-details-marker { display: none; }
+  details.year > summary::before {
+    content: "+";
+    color: var(--muted);
+    font-weight: 400;
+    width: 14px;
+    display: inline-block;
+  }
+  details.year[open] > summary::before { content: "−"; }
+  details.year > summary .count {
+    color: var(--muted);
+    font-weight: 400;
+    margin-left: auto;
+    font-size: 12.5px;
+  }
+  details.year > summary:hover { color: var(--muted); }
+  details.year > ul {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 16px 30px;
+  }
+  details.year > ul li {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 8px 0;
+    font-size: 14.5px;
+    border: 0;
+  }
+  details.year > ul li .when { color: var(--muted); }
+  details.year > ul li .what b { font-weight: 500; }
+  @media (max-width: 768px) {
+    details.year > ul li { grid-template-columns: 1fr; gap: 2px; }
+    details.year > ul { padding-left: 22px; }
+  }
+
   /* Photos */
   .photos .grid {
     display: grid;
@@ -455,38 +509,38 @@
       </article>
     </section>
 
-    <section id="archive" class="cv">
+    <section id="archive">
       <div class="section-head">
         <span class="num">03·a</span>
         <h2>Archive</h2>
-        <span class="ko">이전 글 목록</span>
+        <span class="ko">이전 글 — 연도를 클릭하면 펼쳐집니다</span>
       </div>
 
-      <div class="group">
-        <h3>2024</h3>
+      <details class="year">
+        <summary>2024 <span class="count">1편</span></summary>
         <ul>
           <li><span class="when">논문</span><span class="what"><b>Exploring Sign Language in Disability Theatre: Insights from Kaite O’Reilly’s <i>Peeling</i> and Kim Miran’s <i>This May Be a Failure Story</i></b></span></li>
         </ul>
-      </div>
+      </details>
 
-      <div class="group">
-        <h3>2023</h3>
+      <details class="year">
+        <summary>2023 <span class="count">2편</span></summary>
         <ul>
           <li><span class="when">평론</span><span class="what"><b>단지 더 잘살고 싶었던 여성을 기억하며</b></span></li>
           <li><span class="when">학위논문</span><span class="what"><b>동시대 한국 연극의 신여성 재현 방식</b></span></li>
         </ul>
-      </div>
+      </details>
 
-      <div class="group">
-        <h3>2022</h3>
+      <details class="year">
+        <summary>2022 <span class="count">2편</span></summary>
         <ul>
           <li><span class="when">평론</span><span class="what"><b>그때의 나를 떠올리는, 안온한 햇살 같은 연극</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>다각형의 중심으로 가기 위하여</b></span></li>
         </ul>
-      </div>
+      </details>
 
-      <div class="group">
-        <h3>2021</h3>
+      <details class="year">
+        <summary>2021 <span class="count">8편</span></summary>
         <ul>
           <li><span class="when">아티클</span><span class="what"><b>빛나는 기억들로 마주한 오늘의 나</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>서로의 고독을 마주할 수 있는 자력</b></span></li>
@@ -497,25 +551,25 @@
           <li><span class="when">평론</span><span class="what"><b>아주 익숙하면서도 생경한 것</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>형언될 수 없는 관계의 지독함</b></span></li>
         </ul>
-      </div>
+      </details>
 
-      <div class="group">
-        <h3>2020</h3>
+      <details class="year">
+        <summary>2020 <span class="count">4편</span></summary>
         <ul>
           <li><span class="when">평론</span><span class="what"><b>세월이 지나도 쓴 차의 맛에 대해</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>삶에, 삶의 흩어진 것들에 이름 붙이기</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>각자의 1인분</b></span></li>
           <li><span class="when">발제문</span><span class="what"><b>삶을 위한 도돌이표 — 삶에 대한 주해, 사무엘 베케트 〈해피 데이스〉</b></span></li>
         </ul>
-      </div>
+      </details>
 
-      <div class="group">
-        <h3>2019</h3>
+      <details class="year">
+        <summary>2019 <span class="count">2편</span></summary>
         <ul>
           <li><span class="when">리뷰</span><span class="what"><b>침입하는 소리, 틈입의 죽음</b></span></li>
           <li><span class="when">평론</span><span class="what"><b>인간답게 살고 싶은 상자, 인간답게 살고 싶은 우리</b></span></li>
         </ul>
-      </div>
+      </details>
     </section>
 
     <section id="theatre" class="cv">
