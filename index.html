@@ -143,11 +143,6 @@
     text-transform: uppercase;
   }
   .section-head .ko { color: var(--muted); font-size: 13px; }
-  .section-head .num {
-    color: var(--muted);
-    font-variant-numeric: tabular-nums;
-    margin-right: 4px;
-  }
 
   /* About */
   .about p {
@@ -188,23 +183,33 @@
   .cv li .what b { font-weight: 500; }
   .cv li .what .role { color: var(--muted); margin-left: 6px; }
 
-  /* Writings */
-  .writings article {
-    max-width: 680px;
-    margin: 0 0 48px;
+  /* Writings (flat list) */
+  .writings-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--line);
+    max-width: 880px;
   }
-  .writings article:last-child { margin-bottom: 0; }
-  .writings h3 {
-    font-size: 17px;
-    font-weight: 500;
-    margin: 0 0 4px;
+  .writings-list li {
+    border-bottom: 1px solid var(--line);
   }
-  .writings .meta {
+  .writings-list .row {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 16px;
+    padding: 13px 0;
+    font-size: 14.5px;
+    color: inherit;
+  }
+  .writings-list a.row { text-decoration: none; }
+  .writings-list a.row:hover .what b { text-decoration: underline; }
+  .writings-list .when {
     color: var(--muted);
-    margin-bottom: 14px;
-    font-size: 13px;
+    font-variant-numeric: tabular-nums;
   }
-  .writings p { margin: 0 0 1em; }
+  .writings-list .what b { font-weight: 500; }
+  .writings-list .what .venue { color: var(--muted); margin-left: 8px; }
 
   /* Theatre — videos */
   .videos {
@@ -236,60 +241,6 @@
     font-size: 13.5px;
   }
   .videos .caption .title { color: var(--fg); }
-
-  /* Disclosure (Archive years) */
-  details.year {
-    border-top: 1px solid var(--line);
-  }
-  details.year:last-of-type {
-    border-bottom: 1px solid var(--line);
-  }
-  details.year > summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 14px 0;
-    display: flex;
-    align-items: baseline;
-    gap: 16px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-  details.year > summary::-webkit-details-marker { display: none; }
-  details.year > summary::before {
-    content: "+";
-    color: var(--muted);
-    font-weight: 400;
-    width: 14px;
-    display: inline-block;
-  }
-  details.year[open] > summary::before { content: "−"; }
-  details.year > summary .count {
-    color: var(--muted);
-    font-weight: 400;
-    margin-left: auto;
-    font-size: 12.5px;
-  }
-  details.year > summary:hover { color: var(--muted); }
-  details.year > ul {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 16px 30px;
-  }
-  details.year > ul li {
-    display: grid;
-    grid-template-columns: 110px 1fr;
-    gap: 16px;
-    padding: 8px 0;
-    font-size: 14.5px;
-    border: 0;
-  }
-  details.year > ul li .when { color: var(--muted); }
-  details.year > ul li .what b { font-weight: 500; }
-  @media (max-width: 768px) {
-    details.year > ul li { grid-template-columns: 1fr; gap: 2px; }
-    details.year > ul { padding-left: 22px; }
-  }
 
   /* Photos */
   .photos .grid {
@@ -340,6 +291,11 @@
       gap: 4px;
       padding: 12px 0;
     }
+    .writings-list .row {
+      grid-template-columns: 1fr;
+      gap: 4px;
+      padding: 12px 0;
+    }
     .photos .grid {
       grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       gap: 14px;
@@ -364,7 +320,6 @@
         <li><a href="#about">About</a></li>
         <li><a href="#cv">CV</a></li>
         <li><a href="#writings">글 · Writings</a></li>
-        <li><a href="#archive" style="font-size:13px; color:var(--muted);">└ 이전 글</a></li>
         <li><a href="#theatre">연극 · Theatre</a></li>
         <li><a href="#photos">사진 · Photos</a></li>
       </ul>
@@ -389,7 +344,6 @@
 
     <section id="about" class="about">
       <div class="section-head">
-        <span class="num">01</span>
         <h2>About</h2>
         <span class="ko">소개</span>
       </div>
@@ -413,7 +367,6 @@
 
     <section id="cv" class="cv">
       <div class="section-head">
-        <span class="num">02</span>
         <h2>CV</h2>
         <span class="ko">학력 · 경력</span>
       </div>
@@ -453,128 +406,148 @@
 
     <section id="writings" class="writings">
       <div class="section-head">
-        <span class="num">03</span>
         <h2>Writings</h2>
-        <span class="ko">글 아카이브</span>
+        <span class="ko">글 · 연극, 예술, 그리고 삶에 대한 비평 그 어딘가</span>
       </div>
 
-      <p style="max-width:680px; margin:0 0 40px; color:var(--muted); font-size:14px;">
-        연극, 예술, 그리고 삶에 대한 비평 그 어딘가.
-      </p>
-
-      <article>
-        <h3>거북이는 의외로 빨리 헤엄친다</h3>
-        <div class="meta">2024 · 평론 · 서울문화재단 웹진 ‘연극in’</div>
-        <p style="color:var(--muted); font-size:14px; margin-top:-6px;">
-          서울프린지페스티벌2024 창작집단 푸른수염 〈나는 일종의 ITA 같은 것을 하고 싶은 위대한 연극인이 될 계획인데 말이지〉
-        </p>
-        <p>글의 제목은 2005년에 개봉한 미키 사토시 감독의 일본 영화 제목을 인용하였다.</p>
-        <p>얼마 전 우연히 바다 거북이의 삶에 대해 듣게 되었다. 아기 바다거북이는 스스로 알을 깨고 나오자마자 상대적으로 안전한 바다로 향한다. 가는 길에 독수리에게 잡아먹히거나 사람들이 켜놓은 불빛을 바다로 착각하여 바다행이 좌절되기도 하지만, 살아남은 거북이들은 육지에서보다 바다에서 더 빨리 자신의 발길질로 헤엄치며 살게 된다. 육지에서의 인고의 시간을 경유하여 바다에서 자신만의 속도대로 살 수 있게 되는 것이다.</p>
-        <p>서울프린지페스티벌2024 자유참가작인 〈나는 일종의 ITA 같은 것을 하고 싶은 위대한 연극인이 될 계획인데 말이지〉(이하 〈일종의 ITA〉)는 아기 거북이의 이미지가 떠오르는 공연이었다. 이 작품은 창작집단 푸른수염의 신입단원들이 리서치 및 공동창작하고, 이 집단을 이끄는 안정민이 쓰고 구성한 작품이다. 연극의 중심에는 ‘위대한 연극인’이 되겠다는 포부를 가진 신입단원들이 있다. 이 연극은 바다로 향하는 아기 거북이처럼, 막 연극인으로서 발돋움한 신입단원들에 대한 작품이다.</p>
-        <h4 style="font-size:14.5px; font-weight:600; margin:28px 0 8px;">인정투쟁 없이 예술가-되기</h4>
-        <p>공연 시작 전 연남동 끝에 위치한 복합문화공간 뉴페이즈(New Phase)에 걸그룹 뉴진스의 곡들이 크게 울려 퍼진다. 공연 시간에 이르자 뉴진스의 노래 ‘ETA’가 배경음악으로 삽입된 오프닝 영상이 한쪽 벽면에 투사된다. ‘What’s your ETA’라는 후렴구가 ‘What’s your ITA’라고 들려 웃음이 나오고 만다. 이러한 의외성에 의한 웃음이 이 연극을 이끄는 동력이다. 기존의 질서를 신입단원들만의 질서로 재구성함으로써, 이들만의 규칙을 만드는 것이다.</p>
-        <p>이내 이예진 배우가 관객들에게 자기소개를 하고, 극단 입단 계기와 이보 반 호프(Ivo van Hove)를 알게 된 경위에 대해 설명한다. 국제적인 연출가 이보 반 호프가 예술감독으로 재직 중인 서양 유명 극단, 일명 ITA(International Theatre of Amsterdam)에 대해서 벽 한 면에 시각자료를 투사하여 설명한다. 옆에서 정고운 배우는 우리나라 국립극장에서 분기마다 상영되는 공연 영상 프로그램 ‘ITA Live’를 통해 봤던 ITA 작품들에 대해 말하며 상기된 모습을 보인다.</p>
-        <p>예진은 이보 반 호프를 ‘천재’라고 칭하며 그들처럼 규모가 크고, 대단한 예술적 수준의 연극을 만들고 싶어 한다. 하지만 유럽 유학생 출신인 안정민 연출은 우리나라에서는 그런 연극은 할 수 없다고 한다. 예진은 ITA로 대표되는 유럽 연극과 한국 연극에 대해 고찰한다. 유럽연극은 68혁명 이후 ‘표현을 표현 그 자체로 받아들이는 태도’와 ‘실패 가능한 작업 환경’을 갖추고, 연극에 대한 지원금이 우리나라의 약 100배 정도 되기 때문에, 한국의 연극 제작 환경과 다르다는 사실을 알게 된다.</p>
-        <p>하지만 신입단원들은 포기하지 않고 계속해서 연극에 대해 탐구해간다. 다각도로 현상에 접근하여 다양한 방식으로 상상하고 표현해낸다. 가령 천재 연출가 이보 반 호프를 만나는 브이로그(vlog)를 찍기도 하고, ‘천재론’을 살피기 위해 관객을 학생 삼아 극적 공간을 교실로 탈바꿈하고, 때로는 연극의 원형 그리스 비극의 코러스로 변신해 연극의 신과 대화를 시도한다. 이러한 상상은 극단에 치달아 디스토피아적인 미래까지 뻗어 나간다. ‘마법의 돌’을 통해 자신의 타고난 예술적 재능을 진단받고, 그 결과에 따라 예술 지원 여부가 결정되는 미래에 대해 상상하기도 한다.</p>
-        <p>신입단원들은 고정된 서사나 전통적인 연극 양식에서 벗어나, 자신들의 솔직한 이야기를 담아내는 방식으로 연극을 해나간다. 이를 통해 이들은 주변부(fringe)에서 시작해, 자신들만의 연극 언어와 세계를 구축해나가며 예술가가 되어간다(becoming).</p>
-        <h4 style="font-size:14.5px; font-weight:600; margin:28px 0 8px;">천재가 아니기에(아니어도) 될(할) 수 있는 것</h4>
-        <p>연극은 천재에 대해서 고찰하지만, 결국 천재적인 예술가가 아니라, 평범한 사람들이 어떻게 예술가로서 성장할 수 있는지를 말한다. 신입단원들은 천재가 아니기에 오히려 여러 시행착오를 겪으며 자신들만의 방식으로 예술을 창작할 수 있게 되었다. 그들 스스로의 방식으로 연극을 만들어가야 함을, 기존의 틀을 깨고 자신들만의 표현방식을 알게 된 것이다.</p>
-        <p>연극의 마지막에서 성민경 배우는 처음으로 자신의 언어와 목소리로 관객에게 이야기한다. 비록 연극을 통해 아무것도 변한 게 없을지라도 연극은 그저 ‘간단한 걸 발견한 뒤 흩어져가는 과정’임을 말한다. 그동안 연극에서 어떠한 인물을 연기하며, 연극을 통해 위대한 연극인이 되기 위해 달려왔지만, 결국 자신이 진정으로 되어야 했던 것은 바로 자기 자신임을 깨달았던 걸까? 더 이상 무언가가 되려 하지 않고, 자신으로서 페이스를 찾게 된 모습 같았다.</p>
-        <p>극장을 빠져나오며 “반짝반짝”이라는 부사와 “예쁘다”라는 형용사가 먼저 떠올랐다. 마지막 장면에서 성민경 배우의 대사로 무수히 많은 장면들이 떠올랐다. 연극에 관해 뜨겁게 토론했던 그 많고 많았던 밤과, 가장 좋아하는 연극에 대해 묘사하다가 동기가 내 눈이 반짝이고 있음을 말해줬던 날, 시적인 대사가 흩어지다가 내 맘속에 각인되었던 공연의 무대를 하염없이 바라보던 날 등이 한꺼번에 생각났다. 이렇게 하루를 진심으로 겪어내다가, 우리가 천재가 아니어도, 아기 거북이 같은 의연함을 어느새 가지게 될 수 있지 않을까. 우리는 진즉 알에서 깨어나 찬란한 바다로 가고 있는 중일 지도 모른다.</p>
-      </article>
-
-      <article>
-        <h3>역사의 시간을 몸소 감각하는 경험</h3>
-        <div class="meta">2024 · 아티클·리뷰 · 문화전문지 ‘쿨투라’ 2024년 9월호</div>
-        <p style="color:var(--muted); font-size:14px; margin-top:-6px;">
-          아트선재센터 《호추니엔: 시간과 클라우드(Ho Tzu Nyen: Time &amp; the Cloud)》
-        </p>
-        <p>중고등학생 때 나는 ‘역사’라는 과목을 그다지 좋아하지 않았다. 시험 직전 교과서를 몽땅 외워버려 성적은 나쁘지 않았지만, 나는 역사를 공부할 때마다 공허함을 느끼곤 했다. 중요한 역사적 사건들을 한두 문장들로써 단편적으로 바라보는 것이 이상하다고 생각했다. 역사 또한 사람(들)의 이야기니까. 역사는 ‘지나간’ 시간일 뿐인가? 지나간 시간의 기록인 역사가 오늘날 유효한 이유는 무엇일까? 예술로 역사를 어떻게 표현할까?</p>
-        <p>2024년 6월 4일부터 8월 4일까지 아트선재센터에서 개최된 전시 《호추니엔: 시간과 클라우드(Ho Tzu Nyen: Time &amp; the Cloud)》은 역사와 시간, 정체성 등의 키워드들을 중심으로 천착해왔던 작가 호추니엔이 설계한 “비판적 사유 실험”들을 응축해놓은 듯한 전시였다. 호추니엔은 싱가포르 출신의 현대 미술가로, 비디오 아트와 설치 미술을 주로 작업하는 아티스트다. 내가 처음 접했던 호추니엔의 작품은 2018년 국립현대미술관 다원예술 프로그램 ‘아시아포커스’ 〈의문의 라이텍〉이었다. 이 작품은 1939년부터 1946년까지 말레이 공산당 총서기이자 삼국(프랑스, 영국, 일본)의 스파이로 활동했던 라이텍에 관한 작품으로, 내게 개인사를 넘어 역사는 누군가에 의해 선택되고, 편집되고, 재서술될 수 있음을 알려주며 그러한 세계에서의 기억에 대한 문제의식을 남겼다.</p>
-        <p>이번 전시는 총 세 작품으로 구성되어 있지만, 이 글에서는 〈시간(타임)의 티〉와 〈타임피스〉에 대해 살핀다. 두 작품은 아시아의 근대성과 시간성에 대한 작품으로 〈시간(타임)의 티(T for Time)〉는 호추니엔이 2012년부터 지속해오고 있는 〈동남아시아 비평사전(The Critical Dictionary of Southeast Asia)〉의 일환인 작업이다. 이는 동남아시아의 역사, 문화, 정치, 정체성에 대한 깊이 있는 탐구를 A부터 Z까지 26개의 알파벳을 통해 구조화한 작품이다. 다층적이고 복잡한 동남아시아에 대한 관점을 개방적이고 유연하게 알파벳의 기호로서 접근해 시각화했다.</p>
-        <p>비평사전의 신작 〈시간(타임)의 티(T for Time)〉는 아트선재센터 3층 스페이스1에 들어서면 좌측 거대한 스크린에서, 전시실 우측엔 다양한 크기의 43개 평면 스크린들에서 〈타임피스〉가 각각 상영되고 있었다. 〈타임피스〉의 영상들은 시간에 관련된 영상들로 조각조각 재생되고 있었다. 나의 경우 〈타임피스〉의 작업을 먼저 찬찬히 감상하고 〈시간(타임)의 티〉의 작업을 감상했는데, 〈타임피스〉과 〈시간(타임)의 티〉의 작업들이 호추니엔이 바라 본 아시아의 시간성에 대한 “서로 다른 얼굴을 갖고 있는 쌍생아”와 같은 작업임을 알 수 있었다. 파편화되어있던 시간의 조각들(Timepieces)의 영상들이 〈시간(타임)의 티〉 영상으로 수렴되었다. 〈시간(타임)의 티〉는 시간과 근대성이 모두 서구에 의해 발명되었음을 구명해내는 일종의 도큐멘트 같았다.</p>
-        <p>이 전시가 내게 특별하게 다가왔던 점은 역사적인 사건들을 다층적으로 감각하게 한다는 것이었다. 화이트 큐브에 그저 작품을 전시해놓는 게 아니라 두 겹의 스크린 — 애니메이션이 투사되는 전면 스크린과 실사 이미지들이 투사되는 후면 스크린 — 을 병치하여 시좌(視座)를 선택해 작품의 세계에 능동적으로 개입하라는 것 같았다. 프리재즈 솔로 색소폰의 트랙 위로 영상의 스크립트가 발화되고 흩어지는 청각적인 경험은 눈뿐만 아니라 오래 우리 마음에 남게 했다. 이러한 감각적 전략들은 묻는다. 역사에서 이면과 표면의 현실(혹은 진실)은 무엇인가? 그리고 켜켜이 쌓여온 역사의 시간들을 겪으며 나는 현재 무얼, 어떻게 볼 것인가?</p>
-        <p>전시실을 나올 때쯤 호추니엔이 설계해놓은 레이어(layer)와 공명(resonance)을 곱씹으며, 예술(미학)과 정치에 대해 말했던 철학자 자크 랑시에르의 전언이 떠올랐다. “중요한 것은 거짓말하지 않기, 눈을 감고 있었으면서도 보았다고 말하지 않기, 본 것과 다른 것을 이야기하지 않기, 그저 이름만 붙여놓고는 그것을 설명했다고 믿지 않기이다.”</p>
-      </article>
-
-      <article>
-        <h3>2010–2023 서계동을 기억하며</h3>
-        <div class="meta">2024 · 아티클 · 연극, 만남, 그리고 기억</div>
-        <p style="font-style:italic; color:var(--muted);">“기억은 삶이고, 영원히 진화되어 간다” — 피에르 노라 『기억의 장소』 중</p>
-        <p>국립극단은 2010년 재단법인 출범과 함께, 옛 기무사령부 수송대 건물이었던 공간을 개조하여 서울역 뒤편 서계동에 새 둥지를 틀었습니다. 군부대가 사용하던 차고, 정비고, 막사, 내무반 건물이 극장, 연습실, 무대 및 소품 창고, 사무공간으로 탈바꿈했습니다.</p>
-        <p>2011년 3월에는 국립극단에서 오랜 기간 활동한 故 백성희, 장민호 두 배우의 이름을 딴 ‘백성희장민호극장’의 개관 기념공연 〈3월의 눈〉을 시작으로 관객들을 만나기 시작했습니다. 그리고 2023년 6월 〈보존과학자〉, 〈영지〉를 끝으로 서계동 빨간 지붕에서의 국립극단 무대는 막을 내렸습니다.</p>
-        <p>서계동에는 다양한 공간이 있었습니다. 다채로운 공연을 만날 수 있던 백성희장민호극장과 소극장판, 공연의 세계로 입장하기 전 관객을 처음 맞이하던 매표소, 설레는 마음으로 공연을 준비하던 분장실, 땀과 열정으로 작품을 빚어낸 연습실 스튜디오 하나, 그리고 둘. 무대와 의상, 그리고 소품들이 탄생하는 무대제작소와 의상소품실. 포스터와 전단, 대본과 출판물 등 70년이 넘은 국립극단의 시간을 간직하고 있는 서고. 좋은 작품을 만들기 위해 한 마음으로 일하던 사무실. 동네 고양이부터 시민들까지 모두의 놀이터가 되기도, 공연의 일부분이 되기도, 축제의 장이 되기도 하였던 넓은 마당.</p>
-        <p>국립극단은 연극인 여러분, 관객 여러분, 그리고 국립극단 직원들의 손때가 묻은 곳곳을 디지털 아카이브로 공간을 기록했습니다. 서계동의 풍경과 더불어 여러 질감의 소리를 담은 영상 ‘소리편’부터, 서계동과 얽힌 사람들의 기억이 담긴 영상 ‘기억편’, 원하는 곳을 마음껏 둘러보시면서 서계동을 추억하실 수 있도록 준비한 3D 공간 스캐닝까지.</p>
-        <p>우리의 삶과 기억이 차곡차곡 모인 서계동을 함께 추억할 수 있는 시간이 되기를 바랍니다. 다시 만나요, 서계동.</p>
-      </article>
-    </section>
-
-    <section id="archive">
-      <div class="section-head">
-        <span class="num">03·a</span>
-        <h2>Archive</h2>
-        <span class="ko">이전 글 — 연도를 클릭하면 펼쳐집니다</span>
-      </div>
-
-      <details class="year">
-        <summary>2024 <span class="count">1편</span></summary>
-        <ul>
-          <li><span class="when">논문</span><span class="what"><b>Exploring Sign Language in Disability Theatre: Insights from Kaite O’Reilly’s <i>Peeling</i> and Kim Miran’s <i>This May Be a Failure Story</i></b></span></li>
-        </ul>
-      </details>
-
-      <details class="year">
-        <summary>2023 <span class="count">2편</span></summary>
-        <ul>
-          <li><span class="when">평론</span><span class="what"><b>단지 더 잘살고 싶었던 여성을 기억하며</b></span></li>
-          <li><span class="when">학위논문</span><span class="what"><b>동시대 한국 연극의 신여성 재현 방식</b></span></li>
-        </ul>
-      </details>
-
-      <details class="year">
-        <summary>2022 <span class="count">2편</span></summary>
-        <ul>
-          <li><span class="when">평론</span><span class="what"><b>그때의 나를 떠올리는, 안온한 햇살 같은 연극</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>다각형의 중심으로 가기 위하여</b></span></li>
-        </ul>
-      </details>
-
-      <details class="year">
-        <summary>2021 <span class="count">8편</span></summary>
-        <ul>
-          <li><span class="when">아티클</span><span class="what"><b>빛나는 기억들로 마주한 오늘의 나</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>서로의 고독을 마주할 수 있는 자력</b></span></li>
-          <li><span class="when">아티클</span><span class="what"><b>봄의 전주, 여성 영화의 만개</b></span></li>
-          <li><span class="when">아티클</span><span class="what"><b>‘지금 여기 전주’에서 영화에 대해 다시 얘기하는 경험</b></span></li>
-          <li><span class="when">아티클</span><span class="what"><b>영혼 올라잇!</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>극장에 부유하는 서러운 자들의 노래</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>아주 익숙하면서도 생경한 것</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>형언될 수 없는 관계의 지독함</b></span></li>
-        </ul>
-      </details>
-
-      <details class="year">
-        <summary>2020 <span class="count">4편</span></summary>
-        <ul>
-          <li><span class="when">평론</span><span class="what"><b>세월이 지나도 쓴 차의 맛에 대해</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>삶에, 삶의 흩어진 것들에 이름 붙이기</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>각자의 1인분</b></span></li>
-          <li><span class="when">발제문</span><span class="what"><b>삶을 위한 도돌이표 — 삶에 대한 주해, 사무엘 베케트 〈해피 데이스〉</b></span></li>
-        </ul>
-      </details>
-
-      <details class="year">
-        <summary>2019 <span class="count">2편</span></summary>
-        <ul>
-          <li><span class="when">리뷰</span><span class="what"><b>침입하는 소리, 틈입의 죽음</b></span></li>
-          <li><span class="when">평론</span><span class="what"><b>인간답게 살고 싶은 상자, 인간답게 살고 싶은 우리</b></span></li>
-        </ul>
-      </details>
+      <ul class="writings-list">
+        <li>
+          <a class="row" href="writings/turtle-swims-fast.html">
+            <span class="when">2024 · 평론</span>
+            <span class="what"><b>거북이는 의외로 빨리 헤엄친다</b><span class="venue">서울문화재단 웹진 ‘연극in’</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="writings/ho-tzu-nyen.html">
+            <span class="when">2024 · 아티클·리뷰</span>
+            <span class="what"><b>역사의 시간을 몸소 감각하는 경험</b><span class="venue">문화전문지 ‘쿨투라’ 2024년 9월호</span></span>
+          </a>
+        </li>
+        <li>
+          <a class="row" href="writings/seogyedong-2010-2023.html">
+            <span class="when">2024 · 아티클</span>
+            <span class="what"><b>2010–2023 서계동을 기억하며</b></span>
+          </a>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2024 · 논문</span>
+            <span class="what"><b>Exploring Sign Language in Disability Theatre: Insights from Kaite O’Reilly’s <i>Peeling</i> and Kim Miran’s <i>This May Be a Failure Story</i></b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2023 · 평론</span>
+            <span class="what"><b>단지 더 잘살고 싶었던 여성을 기억하며</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2023 · 학위논문</span>
+            <span class="what"><b>동시대 한국 연극의 신여성 재현 방식</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2022 · 평론</span>
+            <span class="what"><b>그때의 나를 떠올리는, 안온한 햇살 같은 연극</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2022 · 평론</span>
+            <span class="what"><b>다각형의 중심으로 가기 위하여</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 아티클</span>
+            <span class="what"><b>빛나는 기억들로 마주한 오늘의 나</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 평론</span>
+            <span class="what"><b>서로의 고독을 마주할 수 있는 자력</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 아티클</span>
+            <span class="what"><b>봄의 전주, 여성 영화의 만개</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 아티클</span>
+            <span class="what"><b>‘지금 여기 전주’에서 영화에 대해 다시 얘기하는 경험</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 아티클</span>
+            <span class="what"><b>영혼 올라잇!</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 평론</span>
+            <span class="what"><b>극장에 부유하는 서러운 자들의 노래</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 평론</span>
+            <span class="what"><b>아주 익숙하면서도 생경한 것</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2021 · 평론</span>
+            <span class="what"><b>형언될 수 없는 관계의 지독함</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2020 · 평론</span>
+            <span class="what"><b>세월이 지나도 쓴 차의 맛에 대해</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2020 · 평론</span>
+            <span class="what"><b>삶에, 삶의 흩어진 것들에 이름 붙이기</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2020 · 평론</span>
+            <span class="what"><b>각자의 1인분</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2020 · 발제문</span>
+            <span class="what"><b>삶을 위한 도돌이표 — 삶에 대한 주해, 사무엘 베케트 〈해피 데이스〉</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2019 · 리뷰</span>
+            <span class="what"><b>침입하는 소리, 틈입의 죽음</b></span>
+          </div>
+        </li>
+        <li>
+          <div class="row">
+            <span class="when">2019 · 평론</span>
+            <span class="what"><b>인간답게 살고 싶은 상자, 인간답게 살고 싶은 우리</b></span>
+          </div>
+        </li>
+      </ul>
     </section>
 
     <section id="theatre" class="cv">
       <div class="section-head">
-        <span class="num">04</span>
         <h2>Theatre</h2>
         <span class="ko">연극 · 영상</span>
       </div>
@@ -669,7 +642,6 @@
 
     <section id="photos" class="photos">
       <div class="section-head">
-        <span class="num">05</span>
         <h2>Photos</h2>
         <span class="ko">사진</span>
       </div>
